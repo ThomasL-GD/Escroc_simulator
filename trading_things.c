@@ -77,8 +77,6 @@ void Shop (item shopItems[20]){
 
 void Buy (item inventory[20],item shopItems[20], int index, int * money){
 	
-	printf("Buy function in");
-	
 	int nRecep = 19;
 	
 	for(int i = 0; i<20; i++){
@@ -103,16 +101,58 @@ void Buy (item inventory[20],item shopItems[20], int index, int * money){
 	
 };
 
+void Add (item shopItems[20]){
+	
+	char objAjoute[100];
+	
+	printf("	What is the name of the object you want to add ?\n");
+	
+	if(scanf(" %99[^\n]",objAjoute)==1){}
+	
+	int objPrice = 0;
+	
+	while (objPrice < 5 || objPrice > 2000){
+		
+		printf("	What is its price approximatively ?\n");
+		
+		scanf("%d", &objPrice);
+		
+	}
+	
+	objPrice += rand()% 10 - 4;
+	
+	int nRecep = 19;
+	
+	for(int i = 0; i<20; i++){
+		
+		if(strcmp(shopItems[i].name, "z") == 0){
+			
+			nRecep = i;
+			i = 21;
+			
+		}
+		
+	}
+	
+	strcpy(shopItems[nRecep].name, objAjoute);
+	shopItems[nRecep].price = objPrice;
+	
+	
+}
+
 int main (){
 	
 	srand(time(NULL));
 	
 	int nChoice = 0;
 	int nConfirm = 0;
+	char sTempo[150]="a";
+	int nTempo = 0;
+	int nNumberOfGives = 0;
 
 	int money = rand()%1001 + 1000;
 	item inventory[20] = {"Bottes en cuir de yak",150,"Graine de haricot presque magique",60,"Baguette de pain magique",400,"z",0,"z",0,"z",0,"z",0,"z",0,"z",0,"z",0,"z",0,"z",0,"z",0,"z",0,"z",0,"z",0,"z",0,"z",0,"z",0,"z",0};
-	item shopItems[20] = {"Epee sacree du futur draconien de glace",1500,"Grenouille potentiellement princesse",50,"XP en poudre",350,"Casque en plastique massif",100,"Potion a base de plantes douteuses",80,"Armure d'ecailles de truite",500,"Cottes de mailles de laine",850,"Suite Adobe",2000,"Anti-moustiques reelement efficace",145,"Gilet jaune",5,"Fragment de corne de licorne MyLittlePony inc.",785,"Billet de 100PO",101,"Canard en plastique pour Ogre (5m de diametre)",1000,"Du talent en algorithmie",200,"Dragon blanc aux yeux turquoise et aux griffes grises avec des reflets jaunes a pois verts",945,"Malediction de mutisme (a lancer sur les eleves)",320,"z",0,"z",0,"z",0,"z",0};
+	item shopItems[20] = {"z",0,"Grenouille potentiellement princesse",50,"XP en poudre",350,"Casque en plastique massif",100,"z",0,"Armure d'ecailles de truite",500,"z",0,"Suite Adobe",2000,"Anti-moustiques reelement efficace",145,"Gilet jaune",5,"Fragment de corne de licorne MyLittlePony inc.",785,"Billet de 100PO",101,"Canard en plastique pour Ogre (5m de diametre)",1000,"Du talent en algorithmie",200,"Dragon blanc aux yeux turquoise et aux griffes grises avec des reflets jaunes a pois verts",945,"Malediction de mutisme (a lancer sur les eleves)",320,"z",0,"z",0,"z",0,"z",0};
 	
 	
 	// Clearing the screen ┐(・。・┐)♪
@@ -126,9 +166,9 @@ int main (){
 		
 		nChoice = 0;
 	
-		while(nChoice != 1 && nChoice != 2 && nChoice != 4){
+		while(nChoice != 1 && nChoice != 2 && nChoice != 3 && nChoice != 4){
 			
-			printf("\n	Choose something to do :\n 1) Check inventory\n 2) Buy something to the shop\n 4) Quit T_T\n");
+			printf("\n	Choose something to do :\n 1) Check inventory\n 2) Buy something to the shop\n 3) Give an item to the merchant\n 4) Quit T_T\n");
 			
 			scanf("%d",&nChoice);
 			
@@ -201,6 +241,15 @@ int main (){
 				nChoice = 2;
 			
 			}
+			
+		}
+		
+		// Adding item to the shop
+		if(nChoice == 3){
+			
+			printf("start \n");
+			
+			Add(shopItems);
 			
 		}
 
